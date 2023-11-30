@@ -70,7 +70,7 @@ fun AppNavigation(){
                         },
                         label = {
                             Text(text = navItem.label,
-                                color = Color.Black)
+                                color = Color(0xFFEC8474))
                         }
                     )
                 }
