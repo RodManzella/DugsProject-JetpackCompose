@@ -2,7 +2,9 @@ package com.example.dugs_jetpackcompose.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -19,14 +21,14 @@ val listOfNavItems = listOf(
         route = Screens.HomeScreen.name
     ),
     NavItem(
-        label = "Login",
-        icon = Icons.Default.Person,
-        route = Screens.LoginScreen.name
+        label = "About",
+        icon = Icons.Default.Info,
+        route = Screens.AboutScreen.name
     ),
     NavItem(
-        label = "Register",
-        icon = Icons.Default.AccountBox,
-        route = Screens.RegisterScreen.name
+        label = "Team",
+        icon = Icons.Default.Face,
+        route = Screens.TeamScreen.name
     )
 )
 

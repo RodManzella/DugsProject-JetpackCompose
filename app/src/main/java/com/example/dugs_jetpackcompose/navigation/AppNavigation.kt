@@ -1,15 +1,25 @@
 package com.example.dugs_jetpackcompose.navigation
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -18,8 +28,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.dugs_jetpackcompose.screens.HomeScreen
-import com.example.dugs_jetpackcompose.screens.LoginScreen
-import com.example.dugs_jetpackcompose.screens.RegisterScreen
+import com.example.dugs_jetpackcompose.screens.AboutScreen
+import com.example.dugs_jetpackcompose.screens.TeamScreen
+import com.example.dugs_jetpackcompose.R
+
+private fun Modifier.background(b: Boolean, onClick: () -> Unit, icon: () -> Unit, label: () -> Unit) {
+}
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,10 +44,13 @@ fun AppNavigation(){
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Blue)
+            ){
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
-
                 listOfNavItems.forEach{navItem ->
                     NavigationBarItem(
                         selected = currentDestination?.hierarchy?.any{it.route == navItem.route} == true,
@@ -46,10 +65,12 @@ fun AppNavigation(){
                         },
                         icon = {
                                Icon(imageVector = navItem.icon,
-                                   contentDescription = null)
+                                   contentDescription = null,
+                                   tint = Color(0xFFEC8474))
                         },
                         label = {
-                            Text(text = navItem.label)
+                            Text(text = navItem.label,
+                                color = Color.Black)
                         }
                     )
                 }
@@ -69,12 +90,18 @@ fun AppNavigation(){
             composable(route = Screens.HomeScreen.name){
                 HomeScreen()
             }
-            composable(route = Screens.LoginScreen.name){
-                LoginScreen()
+            composable(route = Screens.AboutScreen.name){
+                AboutScreen()
             }
-            composable(route = Screens.RegisterScreen.name){
-                RegisterScreen()
+            composable(route = Screens.TeamScreen.name){
+                TeamScreen()
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewAppNavigation() {
+    AppNavigation()
 }
