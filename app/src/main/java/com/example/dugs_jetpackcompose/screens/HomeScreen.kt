@@ -50,9 +50,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import androidx.navigation.NavController
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.dugs_jetpackcompose.navigation.Screens
+import com.example.dugs_jetpackcompose.screens.AboutScreen
+
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(navController: NavController){
+
     Box(
 
         modifier = Modifier
@@ -92,38 +99,38 @@ fun HomeScreen(){
             top = with(LocalDensity.current) { (150.dp) },
             start = with(LocalDensity.current) { (30.dp) },
             end = with(LocalDensity.current) { (30.dp) }))
-        {
-            Text(text = "As melhores receitas você encontra em nosso site!\n",
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif,
-                fontSize = 15.sp,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                style = LocalTextStyle.current.merge(
-                    TextStyle(
-                        lineHeight = 1.5.em)))
+    {
+        Text(text = "As melhores receitas você encontra em nosso site!\n",
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.SansSerif,
+            fontSize = 15.sp,
+            color = Color.White,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            style = LocalTextStyle.current.merge(
+                TextStyle(
+                    lineHeight = 1.5.em)))
 
         Text(text = "O objetivo do Dug’s Recipes é despertar o amor pela culinária em pessoas que não acreditam terem \"sido feitas para a cozinha\". \n" +
-            "em nosso site oficial você ainda poderá encontrar um ambiente repleto de receitas, das mais práticas até as mais avançadas - você escolhe! Tudo será adaptado às suas preferências alimentares e nível de habilidade.",
+                "em nosso site oficial você ainda poderá encontrar um ambiente repleto de receitas, das mais práticas até as mais avançadas - você escolhe! Tudo será adaptado às suas preferências alimentares e nível de habilidade.",
             fontFamily = FontFamily.SansSerif,
             fontSize = 12.sp,
             color = Color.White,
             style = LocalTextStyle.current.merge(
                 TextStyle(
                     lineHeight = 1.5.em
-                    )
-        ))
-            Button(
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
-                onClick = {
-
-                },
-                modifier = Modifier
-                    .padding(20.dp)
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                Text("Saiba mais")
-            }
+                )
+            ))
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
+            onClick = {
+                navController.navigate("aboutScreen")
+            },
+            modifier = Modifier
+                .padding(20.dp)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text("Saiba mais")
+        }
     }
     Image(
         painter = painterResource(id = R.drawable.food),
@@ -138,9 +145,5 @@ fun HomeScreen(){
 }
 
 
-@Preview
-@Composable
-fun PreviewHomeScreen() {
-    HomeScreen()
-}
+
 

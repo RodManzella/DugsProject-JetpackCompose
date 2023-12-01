@@ -31,6 +31,7 @@ import com.example.dugs_jetpackcompose.screens.HomeScreen
 import com.example.dugs_jetpackcompose.screens.AboutScreen
 import com.example.dugs_jetpackcompose.screens.TeamScreen
 import com.example.dugs_jetpackcompose.R
+import com.example.dugs_jetpackcompose.screens.ContactScreen
 
 private fun Modifier.background(b: Boolean, onClick: () -> Unit, icon: () -> Unit, label: () -> Unit) {
 }
@@ -88,13 +89,16 @@ fun AppNavigation(){
                 .padding(paddingValues)
         ){
             composable(route = Screens.HomeScreen.name){
-                HomeScreen()
+                HomeScreen(navController)
             }
             composable(route = Screens.AboutScreen.name){
                 AboutScreen()
             }
             composable(route = Screens.TeamScreen.name){
-                TeamScreen()
+                TeamScreen(navController)
+            }
+            composable(route = Screens.ContactScreen.name){
+                ContactScreen(navController)
             }
         }
     }

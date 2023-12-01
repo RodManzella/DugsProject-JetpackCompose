@@ -2,6 +2,8 @@ package com.example.dugs_jetpackcompose.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import android.os.Bundle
+import android.provider.Settings.System.putString
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,10 +36,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.dugs_jetpackcompose.R
 
+data class TeamMember(val name: String, val socialLinks: List<String>)
 @Composable
-fun TeamScreen(){
+fun TeamScreen(navController: NavController){
+    val teamMember = TeamMember(
+        name = "John Doe",
+        socialLinks = listOf(
+            "https://www.linkedin.com/in/johndoe",
+            "https://www.instagram.com/johndoe",
+            "https://github.com/johndoe"
+        )
+    )
     Box(
 
         modifier = Modifier
@@ -90,7 +102,6 @@ fun TeamScreen(){
             },
             fontFamily = FontFamily.SansSerif,
             fontSize = 28.sp,
-            color = Color.Black,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = LocalTextStyle.current.merge(
                 TextStyle(
@@ -127,6 +138,17 @@ fun TeamScreen(){
                         top = with(LocalDensity.current) { (20.dp) },
                         start = with(LocalDensity.current) { (30.dp) })
                 )
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
+                    onClick = {
+                        navController.navigate("ContactScreen/eduarda")
+                    },
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .align(Alignment.CenterHorizontally)
+                ) {
+                    Text("Contatos")
+                }
             }
             Column () {
                 Image(
@@ -152,13 +174,21 @@ fun TeamScreen(){
                         top = with(LocalDensity.current) { (20.dp) },
                         start = with(LocalDensity.current) { (30.dp) })
                 )
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
+                    onClick = {
+                        navController.navigate("ContactScreen")
+                    },
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .align(Alignment.CenterHorizontally)
+                ) {
+                    Text("Contatos")
+                }
             }
         }
    }
 }
 
-@Preview
-@Composable
-fun PreviewTeamScreen() {
-    TeamScreen()
-}
+
+
