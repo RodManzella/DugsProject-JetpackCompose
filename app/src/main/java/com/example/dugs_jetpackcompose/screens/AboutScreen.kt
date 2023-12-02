@@ -1,11 +1,14 @@
 package com.example.dugs_jetpackcompose.screens
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
-import androidx.activity.ComponentActivity
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,11 +22,11 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -39,10 +42,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.dugs_jetpackcompose.R
+import kotlinx.coroutines.delay
 
 @Composable
-fun AboutScreen(){
+fun AboutScreen(navController: NavController) {
     Box(
 
         modifier = Modifier
@@ -124,40 +129,94 @@ fun AboutScreen(){
                     lineHeight = 1.5.em
                 )
             ))
-
-        OpenUrlButton()
+        OpenUrlButton(navController)
 
     }
 
 }
 
 @Composable
-fun OpenUrlButton(){
+fun OpenUrlButton(navController: NavController) {
     val gitHub = "https://github.com/RodManzella/SiteDupla-Portfolio"
     val context = LocalContext.current
-    val gintent = remember{Intent(Intent.ACTION_VIEW, Uri.parse(gitHub))}
+    val gintent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(gitHub)) }
+    val isInternetAvailable = isInternetAvailable(context)
 
-
+    if (isInternetAvailable) {
         Button(
             modifier = Modifier
                 .padding(
                     top = with(LocalDensity.current) { (20.dp) },
-                    start = with(LocalDensity.current) { (30.dp) }),
-
+                    start = with(LocalDensity.current) { (30.dp) }
+                ),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
-            onClick = { context.startActivity(gintent) },
-            ) {
+            onClick = {
+                context.startActivity(gintent)
+            },
+        ) {
             Text(text = "Acesse nosso projeto no Github!")
         }
+    } else {
+        // Sem conexão: exibir mensagem de erro por alguns segundos
+        LaunchedEffect(Unit) {
+            // Mostrar mensagem de erro
+            Toast.makeText(
+                context,
+                "Sem conexão com a internet. Verifique sua conexão e tente novamente.",
+                Toast.LENGTH_LONG
+            ).show()
 
 
+            delay(5000)
 
+
+            navController.navigate("homeScreen") {
+                popUpTo("homeScreen") { inclusive = true }
+            }
+        }
+        Text(
+            text = "Conexão necessária para acessar nosso GitHub, retornando à HOME em 5 segundos...",
+            modifier = Modifier
+                .padding(
+                    top = with(LocalDensity.current) { (20.dp) },
+                    start = with(LocalDensity.current) { (30.dp) }
+                ),
+            color = Color.Red
+        )
+
+    }
 }
 
 
 
-@Preview
-@Composable
-fun PreviewAboutScreen() {
-    AboutScreen()
+private fun isInternetAvailable(context: Context): Boolean {
+    var result = false
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val networkCapabilities = connectivityManager.activeNetwork ?: return false
+        val actNw = connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+        result = when {
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
+    } else {
+        connectivityManager.run {
+            connectivityManager.activeNetworkInfo?.run {
+                result = when (type) {
+                    ConnectivityManager.TYPE_WIFI -> true
+                    ConnectivityManager.TYPE_MOBILE -> true
+                    ConnectivityManager.TYPE_ETHERNET -> true
+                    else -> false
+                }
+            }
+        }
+    }
+    return result
 }
+
+
+
+
+
