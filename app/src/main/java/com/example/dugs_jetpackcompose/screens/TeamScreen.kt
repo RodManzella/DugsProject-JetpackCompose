@@ -138,17 +138,7 @@ fun TeamScreen(navController: NavController){
                         top = with(LocalDensity.current) { (20.dp) },
                         start = with(LocalDensity.current) { (30.dp) })
                 )
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
-                    onClick = {
-                        navController.navigate("ContactScreen/eduarda")
-                    },
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .align(Alignment.CenterHorizontally)
-                ) {
-                    Text("Contatos")
-                }
+                
             }
             Column () {
                 Image(
@@ -174,17 +164,7 @@ fun TeamScreen(navController: NavController){
                         top = with(LocalDensity.current) { (20.dp) },
                         start = with(LocalDensity.current) { (30.dp) })
                 )
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
-                    onClick = {
-                        navController.navigate("ContactScreen")
-                    },
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .align(Alignment.CenterHorizontally)
-                ) {
-                    Text("Contatos")
-                }
+
             }
         }
    }
