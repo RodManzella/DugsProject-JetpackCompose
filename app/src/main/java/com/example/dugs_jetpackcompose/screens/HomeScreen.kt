@@ -123,13 +123,13 @@ fun HomeScreen(navController: NavController){
         Button(
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC8474), contentColor = Color.White),
             onClick = {
-                navController.navigate("aboutScreen")
+                navController.navigate("ListScreen")
             },
             modifier = Modifier
                 .padding(20.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Text("Saiba mais")
+            Text("Preview de receitas")
         }
     }
     Image(

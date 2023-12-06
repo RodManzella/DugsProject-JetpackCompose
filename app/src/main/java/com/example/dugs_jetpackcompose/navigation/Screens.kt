@@ -4,5 +4,8 @@ enum class Screens {
     HomeScreen,
     AboutScreen,
     TeamScreen,
-    ContactScreen
+    ListScreen,
+    Brownie,
+    Carbonara,
+    Lasanha
 }

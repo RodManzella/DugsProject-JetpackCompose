@@ -26,7 +26,10 @@ import com.example.dugs_jetpackcompose.screens.HomeScreen
 import com.example.dugs_jetpackcompose.screens.AboutScreen
 import com.example.dugs_jetpackcompose.screens.TeamScreen
 import com.example.dugs_jetpackcompose.R
-import com.example.dugs_jetpackcompose.screens.ContactScreen
+import com.example.dugs_jetpackcompose.screens.ListScreen
+import com.example.dugs_jetpackcompose.screens.recipes.Brownie
+import com.example.dugs_jetpackcompose.screens.recipes.Carbonara
+import com.example.dugs_jetpackcompose.screens.recipes.Lasanha
 
 private fun Modifier.background(b: Boolean, onClick: () -> Unit, icon: () -> Unit, label: () -> Unit) {
 }
@@ -92,8 +95,17 @@ fun AppNavigation(){
             composable(route = Screens.TeamScreen.name){
                 TeamScreen(navController)
             }
-            composable(route = Screens.ContactScreen.name){
-                ContactScreen(navController)
+            composable(route = Screens.ListScreen.name){
+                ListScreen(navController)
+            }
+            composable(route = Screens.Brownie.name){
+                Brownie(navController)
+            }
+            composable(route = Screens.Carbonara.name){
+                Carbonara(navController)
+            }
+            composable(route = Screens.Lasanha.name){
+                Lasanha(navController)
             }
         }
     }
